@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import SignOutButton from "@/components/SignOutButton";
-import GlassCard from "@/components/ui/GlassCard";
+import BookmarkList from "@/components/BookmarkList";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -52,8 +52,7 @@ export default async function DashboardPage() {
 
       {/* Main content */}
       <main className="mx-auto max-w-5xl px-6 py-10">
-        {/* Welcome section */}
-        <div className="mb-10 animate-fade-in-up">
+        <div className="mb-8 animate-fade-in-up">
           <h1 className="text-3xl font-bold tracking-tight text-white">
             Hey, {firstName}
           </h1>
@@ -62,27 +61,7 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        {/* Bookmark form + list placeholder — will be built in next branch */}
-        <GlassCard size="lg" className="animate-fade-in-up animation-delay-200">
-          <div className="flex flex-col items-center gap-4 py-8 text-center">
-            <svg
-              className="h-12 w-12 text-white/20"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-            <p className="text-sm text-white/30">
-              No bookmarks yet. Add your first one!
-            </p>
-          </div>
-        </GlassCard>
+        <BookmarkList />
       </main>
     </div>
   );
