@@ -53,10 +53,10 @@ export default function Home() {
         {/* Title */}
         <div className="space-y-2 text-center opacity-0 animate-fade-in-up animation-delay-200">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Welcome Back
+            Welcome
           </h1>
           <p className="text-sm leading-relaxed text-foreground/35">
-            Save, organize &amp; rediscover your bookmarks with real-time sync.
+            Save &amp; rediscover your bookmarks with real-time sync.
           </p>
         </div>
 
