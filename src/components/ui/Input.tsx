@@ -11,9 +11,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const sizeStyles: Record<InputSize, string> = {
-  sm: "px-3 py-1.5 text-xs rounded-lg",
-  md: "px-4 py-2.5 text-sm rounded-xl",
-  lg: "px-5 py-3.5 text-sm rounded-xl",
+  sm: "px-4 py-2 text-sm rounded-lg",
+  md: "px-5 py-3 text-base rounded-xl",
+  lg: "px-6 py-4 text-base rounded-xl",
 };
 
 export default function Input({
@@ -27,22 +27,22 @@ export default function Input({
   const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       {label && (
         <label
           htmlFor={inputId}
-          className="text-xs font-medium uppercase tracking-wider text-white/40"
+          className="text-[10px] font-medium uppercase tracking-wider text-foreground/30"
         >
           {label}
         </label>
       )}
       <input
         id={inputId}
-        className={`w-full border border-white/10 bg-white/5 text-white placeholder-white/25 backdrop-blur-sm transition-all duration-200 outline-none focus:border-white/25 focus:bg-white/10 focus:ring-1 focus:ring-white/10 ${sizeStyles[inputSize]} ${error ? "border-red-500/40 focus:border-red-500/60 focus:ring-red-500/20" : ""} ${className}`}
+        className={`w-full border border-amber-200/[0.06] bg-surface-light/60 text-foreground placeholder-foreground/20 backdrop-blur-sm transition-all duration-200 outline-none focus:border-accent/25 focus:bg-surface-light focus:ring-1 focus:ring-accent/10 ${sizeStyles[inputSize]} ${error ? "border-red-500/25 focus:border-red-500/40 focus:ring-red-500/10" : ""} ${className}`}
         {...props}
       />
       {error && (
-        <span className="text-xs text-red-400">{error}</span>
+        <span className="text-[10px] text-red-400">{error}</span>
       )}
     </div>
   );

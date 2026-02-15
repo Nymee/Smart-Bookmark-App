@@ -14,19 +14,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   glass:
-    "border border-white/10 bg-white/10 text-white backdrop-blur-sm hover:border-white/25 hover:bg-white/15 hover:shadow-lg hover:shadow-white/5",
+    "border border-amber-200/[0.06] bg-surface-light/80 text-foreground backdrop-blur-sm hover:border-amber-200/[0.14] hover:bg-surface-light",
   solid:
-    "bg-white text-black hover:bg-white/90",
+    "bg-accent text-white hover:bg-accent-hover shadow-md shadow-accent/15",
   ghost:
-    "text-white/60 hover:text-white hover:bg-white/5",
+    "text-foreground/45 hover:text-foreground/75 hover:bg-surface-light/50",
   danger:
-    "border border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:border-red-500/30",
+    "border border-red-500/12 bg-red-500/[0.06] text-red-400 hover:bg-red-500/[0.1] hover:border-red-500/20",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-xs rounded-lg gap-1.5",
-  md: "px-5 py-2.5 text-sm rounded-xl gap-2",
-  lg: "px-6 py-3.5 text-sm rounded-xl gap-3",
+  sm: "px-4 py-2 text-sm rounded-lg gap-1.5",
+  md: "px-6 py-3 text-base rounded-xl gap-2",
+  lg: "px-8 py-4 text-base rounded-xl gap-3",
 };
 
 export default function Button({
@@ -41,7 +41,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`group relative inline-flex items-center justify-center font-medium transition-all duration-300 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40 ${variantStyles[variant]} ${sizeStyles[size]} ${fullWidth ? "w-full" : ""} ${className}`}
+      className={`group relative inline-flex items-center justify-center font-medium transition-all duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40 ${variantStyles[variant]} ${sizeStyles[size]} ${fullWidth ? "w-full" : ""} ${className}`}
       disabled={disabled}
       {...props}
     >
