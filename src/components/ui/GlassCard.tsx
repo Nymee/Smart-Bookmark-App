@@ -8,9 +8,9 @@ interface GlassCardProps {
 }
 
 const sizeStyles: Record<CardSize, string> = {
-  sm: "p-4 rounded-xl",
+  sm: "px-5 py-4 rounded-xl",
   md: "p-6 rounded-2xl",
-  lg: "px-8 py-12 rounded-2xl",
+  lg: "px-10 py-12 rounded-2xl",
 };
 
 export default function GlassCard({
@@ -21,7 +21,7 @@ export default function GlassCard({
 }: GlassCardProps) {
   return (
     <div
-      className={`border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl ${sizeStyles[size]} ${hover ? "transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08]" : ""} ${className}`}
+      className={`border border-amber-200/[0.05] bg-surface/60 shadow-lg shadow-black/10 backdrop-blur-xl ${sizeStyles[size]} ${hover ? "transition-all duration-200 hover:border-amber-200/[0.1] hover:bg-surface/80" : ""} ${className}`}
     >
       {children}
     </div>

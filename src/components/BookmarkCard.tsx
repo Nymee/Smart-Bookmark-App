@@ -8,16 +8,20 @@ import Button from "@/components/ui/Button";
 
 interface BookmarkCardProps {
   bookmark: Bookmark;
+  onDelete: (id: string) => void;
 }
 
-export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
+export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) {
   const supabase = createClient();
   const [deleting, setDeleting] = useState(false);
 
   const handleDelete = async () => {
     setDeleting(true);
-    await supabase.from("bookmarks").delete().eq("id", bookmark.id);
-    // Real-time subscription will handle removal from the list
+    const { error } = await supabase.from("bookmarks").delete().eq("id", bookmark.id);
+    if (!error) {
+      onDelete(bookmark.id);
+    }
+    setDeleting(false);
   };
 
   let displayUrl: string;
@@ -28,18 +32,18 @@ export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
   }
 
   return (
-    <GlassCard size="sm" hover className="animate-fade-in-up">
-      <div className="flex items-start justify-between gap-4">
+    <GlassCard size="sm" hover>
+      <div className="flex items-center justify-between gap-3">
         <div className="min-w-0 flex-1">
           <a
             href={bookmark.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block truncate text-sm font-medium text-white transition-colors hover:text-white/80"
+            className="block truncate text-base font-medium text-foreground/85 transition-colors hover:text-accent"
           >
             {bookmark.title}
           </a>
-          <p className="mt-1 truncate text-xs text-white/30">
+          <p className="mt-1 truncate text-sm text-foreground/25">
             {displayUrl}
           </p>
         </div>
@@ -51,7 +55,7 @@ export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
           disabled={deleting}
           icon={
             <svg
-              className="h-3.5 w-3.5"
+              className="h-4 w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

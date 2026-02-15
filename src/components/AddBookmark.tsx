@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import type { Bookmark } from "@/types/bookmark";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 
-export default function AddBookmark() {
+interface AddBookmarkProps {
+  onAdd: (bookmark: Bookmark) => void;
+}
+
+export default function AddBookmark({ onAdd }: AddBookmarkProps) {
   const supabase = createClient();
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
@@ -24,7 +29,6 @@ export default function AddBookmark() {
       return;
     }
 
-    // Basic URL validation
     try {
       new URL(trimmedUrl);
     } catch {
@@ -44,13 +48,16 @@ export default function AddBookmark() {
       return;
     }
 
-    const { error: insertError } = await supabase
+    const { data, error: insertError } = await supabase
       .from("bookmarks")
-      .insert({ url: trimmedUrl, title: trimmedTitle, user_id: user.id });
+      .insert({ url: trimmedUrl, title: trimmedTitle, user_id: user.id })
+      .select()
+      .single();
 
     if (insertError) {
       setError(insertError.message);
-    } else {
+    } else if (data) {
+      onAdd(data);
       setUrl("");
       setTitle("");
     }
@@ -59,7 +66,7 @@ export default function AddBookmark() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="flex-1">
           <Input
